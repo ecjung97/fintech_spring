@@ -7,10 +7,9 @@ import net.daum.vo.BoardVO;
 public interface BoardDAO {
 
 	void insertBoard(BoardVO b);
+
 	int getTotalCount();
-	List<BoardVO> getBoardList(BoardVO b);
-	void updateHit(int bno);
-	BoardVO getBoardCont(int bno);
-	void updateBoard(BoardVO eb);
-	void delBoard(int bno);
+
+	List<BoardVO> getBoardList();
+	
 }

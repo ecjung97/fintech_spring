@@ -2,15 +2,16 @@
 
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > <!-- mybatis mapper DTD 문서 정의태그이다. -->
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > <!-- mybatis 매퍼 DTD문서 정의태그이다. -->
 
 <mapper namespace="Member"> <!-- 매퍼 네임스페이스 명을 Member로 할당, mybatis에서 쿼리문을 다루는 태그를 매퍼태그 라고 한다. -->
 
-    <!-- 회원 저장 -->
-    <insert id="member_in" parameterType="member">
-        <!-- parameterType 속성ㅇ은 전달인자 타입이고 생략가능, 속성값으로 지정된 member는 mybatis-config.xml에서 설정한 MemberVO 빈클래스
-         객체 별칭이름이다. 만약에 별칭이름을 사용하지 않고 싶다면 풀패키지 경로를 넣어주면 된다. net.daum.vo.MemberVO -->
-        insert into TBL_MEMBER8 (userid, userpw, username, email) values (#{userid}, #{userpw}, #{username}, #{email})
-        <!-- #{userid}를 Java code로 표현하면 member.getUserid()와 같은 기능을 한다. -->
-    </insert>
+  <!-- 회원 저장 -->
+  <insert id="member_in" parameterType="member">
+    <!-- parameterType속성은 전달인자 타입이고 생략가능 , 속성값으로 지정된 member는 mybatis-config.xml에서 설정한 MemberVO빈클래스
+    객체 별칭이름이다. 만약에 별칭이름을 사용하지 않고 싶다면 풀패키지 경로를 넣어주면 된다.  net.daum.vo.MemberVO-->
+    insert into tbl_member8 (userid,userpw,username,email) values(#{userid},#{userpw},#{username},#{email})
+    <!-- #{userid}를 자바 코드로 표현하면 member.getUserid()와 같은 기능을 한다. -->
+  </insert>
+  
 </mapper>
