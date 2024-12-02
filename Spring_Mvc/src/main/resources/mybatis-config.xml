@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	    <!-- MemberVO 빈클래스 객체 별칭이름을 member로 함. 이 member는 member.xml에서 참조한다. -->
 	    
 	    <typeAlias type="net.daum.vo.BoardVO" alias="board" />
-	    	    
+
+		<typeAlias type="net.daum.vo.ReplyVO" alias="reply"/>
 	</typeAliases>
 </configuration>	

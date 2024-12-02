@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Reply">
+
+    <!-- 댓글 추가 -->
+    <insert id="reply_in" parameterType="reply">
+        insert into tbl_reply (rno, bno, replyer, replytext, regdate)
+        values (rno_seq.nextval, #{bno}, #{replyer}, #{replytext}, sysdate)
+    </insert>
+</mapper>
