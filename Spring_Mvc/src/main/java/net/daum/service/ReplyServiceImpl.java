@@ -1,11 +1,12 @@
 package net.daum.service;
 
-import net.daum.dao.ReplyDAO;
-import net.daum.vo.ReplyVO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import net.daum.dao.ReplyDAO;
+import net.daum.vo.ReplyVO;
 
 @Service
 public class ReplyServiceImpl implements ReplyService {
@@ -20,6 +21,6 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public List<ReplyVO> listReply(int bno) {
-        return List.of();
+        return this.replyDAO.listReply(bno);
     }
 }

@@ -1,14 +1,14 @@
 package net.daum.controller;
 
-import net.daum.service.ReplyService;
-import net.daum.vo.ReplyVO;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import net.daum.service.ReplyService;
+import net.daum.vo.ReplyVO;
 
 @RestController // @RestController 추가하면 해당 controller는 REST api service program을 개발 가능한 controller가 된다.
 @RequestMapping("/replies") // control 자체 mapping주소 replies 등록
@@ -36,7 +36,7 @@ public class ReplyController {
 
     // 게시판 번호에 해당하는 댓글 목록
     @GetMapping("/all/{bno}") // get으로 접근하는 매핑주소를 처리
-    public ResponseEntity<List<ReplyVO>> replyList(@PathVariable("bno") String bno) {
+    public ResponseEntity<List<ReplyVO>> replyList(@PathVariable("bno") int bno) {
         // @PathVariable("bno")는 매핑주소 {bno}로 전달된 게시판 번호값을 추출하는 용도로 사용
         ResponseEntity<List<ReplyVO>> entity=null;
 
