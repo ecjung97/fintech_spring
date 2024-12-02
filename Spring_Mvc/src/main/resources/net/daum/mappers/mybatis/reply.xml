@@ -11,4 +11,11 @@
         insert into tbl_reply (rno, bno, replyer, replytext, regdate)
         values (rno_seq.nextval, #{bno}, #{replyer}, #{replytext}, sysdate)
     </insert>
+
+    <!-- 게시판 번호에 해당하는 댓글 목록 -->
+    <select id="reply_list" parameterType="int" resultType="net.daum.vo.ReplyVO">
+        <!-- parameterType은 생략가능함. resultType은 생략불가. 이 속성값으로 mybatis-config.xml에서 설정한 ReplyVO 빈클래스 객체
+        별칭명을 사용하지 않으면 풀패키지 경로를 사용해야 한다. -->
+        select * from tbl_reply where bno=#{bno} order by rno desc
+    </select>
 </mapper>
