@@ -23,4 +23,14 @@ public class ReplyServiceImpl implements ReplyService {
     public List<ReplyVO> listReply(int bno) {
         return this.replyDAO.listReply(bno);
     }
+
+    @Override
+    public void updateReply(ReplyVO vo) {
+        this.replyDAO.updateReply(vo);
+    }
+
+    @Override
+    public void removeReply(int rno) {
+        this.replyDAO.removeReply(rno);
+    }
 }

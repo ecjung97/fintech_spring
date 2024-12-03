@@ -8,4 +8,6 @@ public interface ReplyService {
 
     void addReply(ReplyVO vo);
     List<ReplyVO> listReply(int bno);
+    void updateReply(ReplyVO vo);
+    void removeReply(int rno);
 }

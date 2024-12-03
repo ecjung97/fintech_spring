@@ -24,4 +24,15 @@ public class ReplyDAOImpl implements ReplyDAO {
         return this.sqlSession.selectList("reply_list", bno); /* mybatis에서 selectList() method는 하나 이상의 record를 검색해서
         collection List로 반환한다. reply_list는 mybatis Mapper tag에서 설정할 유일 아이디명 */
     } // 게시판 번호에 해당하는 댓글목록
+
+    @Override
+    public void updateReply(ReplyVO vo) {
+        this.sqlSession.update("reply_edit", vo); // reply_edit는 mybatis mapper tag에서 설정하는 유일 아이디명.
+    } // 댓글 수정
+
+    @Override
+    public void removeReply(int rno) {
+        this.sqlSession.delete("reply_del", rno); // mybatis 에서 delete() method는 record를 삭제한다.
+        // reply_del은 mybatis mapper tag에서 설정하는 유일 아이디명.
+    }
 }

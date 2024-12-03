@@ -18,4 +18,14 @@
         별칭명을 사용하지 않으면 풀패키지 경로를 사용해야 한다. -->
         select * from tbl_reply where bno=#{bno} order by rno desc
     </select>
+
+    <!-- 댓글 수정 => parameterType은 생략함. -->
+    <update id="reply_edit">
+        update tbl_reply set replytext=#{replytext}, updatedate=sysdate where rno=#{rno}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <delete id="reply_del" parameterType="int">
+        delete from tbl_reply where rno=#{rno}
+    </delete>
 </mapper>

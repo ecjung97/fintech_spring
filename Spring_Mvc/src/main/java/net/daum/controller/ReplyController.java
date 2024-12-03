@@ -48,4 +48,39 @@ public class ReplyController {
         }
         return entity;
     } // replyList()
+
+    // 댓글 수정
+    @PutMapping("/{rno}") // @PutMapping은 수정할 때 호출되는 Mapping주소
+    public ResponseEntity<String> replyEdit(@PathVariable("rno") int rno, @RequestBody ReplyVO vo) {
+        /*  브라우저 주소창에 /{rno} 전달된 댓글번호를 @Pathvariable("rno")로 구한다. Arc에서 전송된 JSON 데이터는 @RequestBody에 의해서
+            ReplyVO객체타입으로 변환을 한다. 하지만 주소 ㅏㅇ으로 전달된 댓글번호인 rno는 JSON 데이터가 아니기 때문에 ReplyVO 객체타입으로
+            변환을 못해서 별도의 저장을 해야 한다. */
+        ResponseEntity<String> entity=null;
+
+        try {
+            vo.setRno(rno); // 댓글 번호 저장
+            this.replyService.updateReply(vo); // 댓글 수정 (this. 은 생략 가능)
+            entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK); // 댓글 수정 성공 시 200정상 상태 코드와 SUCCESS 문자 반환.
+        }catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return entity;
+    } // replyEdit()
+
+    // 댓글 삭제
+    @DeleteMapping("/{rno}") // @DeleteMapping 삭제 시 호출
+    public ResponseEntity<String> deleteReply(@PathVariable("rno") int rno) {
+        ResponseEntity<String> entity=null;
+
+        try {
+            this.replyService.removeReply(rno); // 댓글 삭제
+            /* 문제) mybatis mapper tag에서 설정할 유일 아이디명을 reply_del로 해서 댓글 번호를 기준으로 삭제되게 만들어 보자. */
+            entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return entity;
+    }
 }
