@@ -55,3 +55,5 @@ nocache ;
 -- rno_seq 다음 시퀀스 번호값 확인
 select rno_seq.nextval as "다음 시퀀스 번호값" from dual;
 
+drop table tbl_board;
+

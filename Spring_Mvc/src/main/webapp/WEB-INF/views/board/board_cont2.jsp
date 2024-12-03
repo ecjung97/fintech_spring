@@ -3,7 +3,8 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>스프링 MVC 게시판 내용보기</title>
+  <title>스프링 MVC 게시판 내용보기와 비동기식 Ajax 댓글</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       let formObj = $("form[role='form']");
@@ -22,6 +23,22 @@
       });
     });
   </script>
+  <style type="text/css">
+    #modDiv { /* 댓글 수정폼 */
+      width: 300px;
+      height: 100px;
+      background-color: gray;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -150px;
+      padding: 10px;
+      z-index: 1000;
+      /* position이 absolute나 fixed로 설정된 곳에서 사용한다. 이 속성은 요소가 겹쳐지는 순서를 제어할 수 있다.
+                           값이 큰 것이 먼저 나온다. */
+    }
+  </style>
 </head>
 <body>
 <form method="post" role="form">
@@ -54,9 +71,11 @@
     </th>
   </tr>
 </table>
+
 <br/>
 <hr/>
 <br/>
+
 <%-- 댓글 수정 화면 --%>
 <div id="modDiv" style="display: none;"> <%-- display: none; css는 해당 요소 안보이게 한다. --%>
   <div class="modal-title"></div> <%-- 댓글 번호 --%>
@@ -90,9 +109,8 @@
 <%-- 댓글 목록이 출력되는 부분 --%>
 <ul id="replies"></ul>
 
-<script src="https://code.jquery.com/jquery-latest.min.js"></script> <%-- jQuery 라이브러리 CDN --%>
 <script type="text/javascript">
-  let bno=4; // 게시판 번호
+  let bno = ${bc.bno}; // JavaScript code 내에서 JSP 문법인 EL(Expression Language : 표현언어)을 적용
 
   getAllList(); // 댓글목록 함수 호출
   function getAllList() {
