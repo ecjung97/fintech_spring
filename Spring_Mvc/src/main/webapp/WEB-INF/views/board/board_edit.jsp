@@ -45,6 +45,6 @@
       </th>
     </tr>
   </table>
-</form>x
+</form>
 </body>
 </html>

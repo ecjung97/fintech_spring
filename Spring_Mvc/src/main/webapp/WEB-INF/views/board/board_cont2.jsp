@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,11 +7,11 @@
   <title>스프링 MVC 게시판 내용보기와 비동기식 Ajax 댓글</title>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
       let formObj = $("form[role='form']");
 
       // 수정폼으로 매핑이동
-      $('.btn-edit').on("click",function(){
+      $('.btn-edit').on("click", function() {
         formObj.attr("action","/board/board_edit"); // 액션 속성 지정
         formObj.attr("method","get"); // 메서드 속성을 지정
         formObj.submit(); // hidden 번호값 제출
@@ -37,6 +38,9 @@
       z-index: 1000;
       /* position이 absolute나 fixed로 설정된 곳에서 사용한다. 이 속성은 요소가 겹쳐지는 순서를 제어할 수 있다.
                            값이 큰 것이 먼저 나온다. */
+    }
+    span.reply_color {
+      color: red; background: gold; font-size: 20px; border-radius: 10px; padding: 5px; box-shadow: 5px 5px 5px gray;
     }
   </style>
 </head>
@@ -89,6 +93,10 @@
   </div>
 </div>
 
+<c:if test="${bc.replycnt != 0}">
+[댓글 개수 : ]<span class="reply_color">${bc.replycnt} 개</span>
+</c:if>
+
 <h2>Ajax 댓글 연습 페이지</h2>
 <div>
   <div>
@@ -109,7 +117,7 @@
 <%-- 댓글 목록이 출력되는 부분 --%>
 <ul id="replies"></ul>
 
-<script type="text/javascript">
+<script>
   let bno = ${bc.bno}; // JavaScript code 내에서 JSP 문법인 EL(Expression Language : 표현언어)을 적용
 
   getAllList(); // 댓글목록 함수 호출
@@ -146,8 +154,9 @@
       success: function (result) { // 받아오는 것이 성공 시 호출되는 콜백함수
         if (result === 'SUCCESS') {
           alert('댓글이 등록되었습니다!');
+          location.reload() // 새로고침
           getAllList(); // 댓글목록 함수 호출
-        }
+        };
       }
     });
   });
@@ -188,7 +197,7 @@
           alert ('댓글이 수정되었습니다!');
           $('#modDiv').hide('slow'); // 댓글 수정 화면 닫기
           getAllList(); // 댓글목록 함수호출
-        }
+        };
       }
     });
   });
@@ -209,11 +218,12 @@
         if (result === 'SUCCESS') {
           alert ('댓글이 삭제되었습니다!');
           $('#modDiv').hide('slow');
-          getAllList();
+          location.reload(); // 새로고침
+          getAllList(); // 댓글 목록함수 호출
         }
       }
-    })
-  })
+    });
+  });
 </script>
 </body>
 </html>

@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 게시판 목록 -->
   <select id="b_list" resultType="board" parameterType="board">
    select * from
-   (select rowNum rNum, bno, writer, title, viewcnt,regdate from
+   (select rowNum rNum, bno, writer, title, viewcnt,regdate,replycnt from
     (select * from tbl_board order by bno desc))
     where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
     <!-- &gt;은 >, &lt;은 < 의미 -->
@@ -43,8 +43,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update tbl_board set writer=#{writer}, title=#{title}, content=#{content} where bno=#{bno}
     </update>
 
-    <!-- 게시판 삭제 -->
+    <!-- 게시물 삭제 -->
     <delete id="b_del"> <!-- parameterType속성은 생략 -->
         delete from tbl_board where bno=#{bno}
     </delete>
+
+    <!-- 댓글 수 1증가, 감소 -->
+    <update id="replyCntUpdate" parameterType="java.util.HashMap">
+        update tbl_board set replycnt = replycnt+#{count} where bno=bno#{bno}
+    </update>
 </mapper>

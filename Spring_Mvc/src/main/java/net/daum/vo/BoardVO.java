@@ -14,6 +14,7 @@ public class BoardVO {
 	private String content;//글내용
 	private int viewcnt;//조회수
 	private String regdate;//등록날짜
+	private int replycnt; // 고객의 추가요구사항이 발생해서 댓글 수를 count해서 저장할 변수
 	
 	//페이징(쪽나누기) 관련 변수
 	private int startrow;//시작행 번호

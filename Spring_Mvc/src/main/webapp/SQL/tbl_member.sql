@@ -22,6 +22,13 @@ create table tbl_board(
 
 select * from tbl_board order by bno desc;
 
+-- 사이트 완성 후 한 고객이 게시판 내용에 밑의 댓글 수를 count해서 출력해 달라는 요구사항 => tbl_board 게시판 table에 댓글수를 count해서 저장할 column replycnt를 추가
+alter table tbl_board
+add (replycnt int default 0);
+
+-- tbl_reply 댓글 table의 게시판 번호에 해당하는 댓글 수를 count해서 tbl_board table에 생성된 replycnt column record로 update
+update tbl_board set replycnt = (select count(rno) from tbl_reply where bno = tbl_board.bno) where bno>0;
+
 -- bno_seq 시퀀스 생성
 create sequence bno_seq
 start with 1 --1부터 시작
@@ -55,5 +62,40 @@ nocache ;
 -- rno_seq 다음 시퀀스 번호값 확인
 select rno_seq.nextval as "다음 시퀀스 번호값" from dual;
 
-drop table tbl_board;
+-- Spring AOP와 Transcation 실습을 위한 table 설계
+create table tbl_user (
+    uid2 varchar2(50) primary key , -- 회원아이디
+    upw varchar2(100) not null , -- 비번
+    uname varchar2(50) not null , -- 회원이름
+    upoint number(38) default 0 -- message가 저장되면 포인트 점수 10점 업데이트
+);
 
+insert into tbl_user (uid2, upw, uname) values ('user00', '77777', '홍길동');
+insert into tbl_user (uid2, upw, uname) values ('user01', '56789', '이순신');
+
+select * from tbl_user order by uid2 asc;
+
+create table tbl_message (
+    mid number(38) primary key ,
+    targetid varchar2(50) not null , -- 나중에 추가적인 외래키 설정. tbl_user table의 uid2 column id값만 저장됨.
+    sender varchar2(30) not null , -- ㅡmessage 보낸 사람
+    message varchar2(4000) not null , -- 보낸 message
+    senddate date -- message를 보낸 날짜
+);
+
+-- targetid column에 추가적인 외래키(forgeign key)를 설정
+alter table tbl_message add constraint tbl_message_targetid_fk
+foreign key (targetid) references tbl_user(uid2);
+
+-- mid_no_seq sequence 생성
+create sequence mid_no_seq
+start with 1
+increment by 1
+nocache ;
+
+-- mid_no_seq sequence 번호를 생성
+select mid_no_seq.nextval as "Sequence 번호값" from dual;
+
+select * from tbl_message order by mid asc;
+
+delete from tbl_message where mid=3;

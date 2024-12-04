@@ -35,4 +35,9 @@ public class ReplyDAOImpl implements ReplyDAO {
         this.sqlSession.delete("reply_del", rno); // mybatis 에서 delete() method는 record를 삭제한다.
         // reply_del은 mybatis mapper tag에서 설정하는 유일 아이디명.
     }
+
+    @Override
+    public int getBno(int rno) {
+        return this.sqlSession.selectOne("reply_bno", rno); // mybatis에서 selectOne() method는 단 한개의 레코드만 반환
+    } // 댓글번호에 해당하는 게시판 번호 구하기
 }

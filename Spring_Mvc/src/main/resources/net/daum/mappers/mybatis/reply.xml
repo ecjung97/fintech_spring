@@ -28,4 +28,9 @@
     <delete id="reply_del" parameterType="int">
         delete from tbl_reply where rno=#{rno}
     </delete>
+
+    <!-- 댓글이 삭제되기 전 댓글 번호를 기준으로 게시판 번호 알아내기 -->
+    <select id="reply_bno" resultType="int">
+        select bno from tbl_reply where rno=#{rno}
+    </select>
 </mapper>

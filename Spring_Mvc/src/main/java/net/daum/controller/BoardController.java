@@ -106,7 +106,7 @@ public class BoardController {//스프링 MVC 게시판 컨트롤러 클래스
 		cm.addObject("bc", bc);
 		cm.addObject("page", page);
 		cm.addObject("bcont", bcont);
-		cm.setViewName("board/board_cont"); // 뷰페이지 경로(뷰리졸브) => /WEB-INF/views/board/board_cont.jsp
+		cm.setViewName("board/board_cont2"); // 뷰페이지 경로(뷰리졸브) => /WEB-INF/views/board/board_cont.jsp
 		return cm;
 	} // board_cont()
 
