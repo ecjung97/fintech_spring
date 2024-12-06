@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > 
+
+<mapper namespace="Reply">
+
+  <!-- 댓글 추가 -->
+  <insert id="reply_in" parameterType="reply">
+    insert into tbl_reply (rno,bno,replyer,replytext,regdate) 
+    values(rno_seq.nextval, #{bno}, #{replyer}, #{replytext}, sysdate)
+  </insert>
+  
+  <!--  게시판 번호에 해당하는 댓글 목록 -->
+  <select id="reply_list" parameterType="int" resultType="net.daum.vo.ReplyVO">
+   <!--  parameterType은 생략가능함. resultType은 생략불가. 이 속성값으로 mybatis-config.xml에서 설정한 ReplyVO빈클래스 객체 별칭
+   명을 사용하지 않으면 풀패키지 경로를 사용해야 한다. --> 
+    select * from tbl_reply where bno=#{bno} order by rno desc
+  </select>
+  
+  <!-- 댓글수정 => parameterType은 생략함. -->
+  <update id="reply_edit">
+    update tbl_reply set replytext=#{replytext}, updatedate=sysdate where rno=#{rno}
+  </update>
+  
+  <!-- 댓글 삭제 -->
+  <delete id="reply_del" parameterType="int">
+    delete from tbl_reply where rno=#{rno}  
+  </delete>
+  
+  <!-- 댓글이 삭제되기 전 댓글 번호를 기준으로 게시판 번호 알아내기-->
+  <select id="reply_bno" resultType="int">
+    select bno from tbl_reply where rno=#{rno}  
+  </select>
+  
+</mapper>
+
+
+
+
+
+
+
+

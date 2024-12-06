@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > 
+
+<mapper namespace="Board">
+
+  <!-- 게시판 저장 -->
+  <insert id="board_in" parameterType="board">
+   <!-- parameterType은 전달인자 타입이고 ,속성값 board는 mybatis-config.xml에서 설정한 BoardVO.java의 객체 별칭이름이다.
+   parameterType은 생략가능하다. board대신 풀패키지 경로인 net.daum.vo.BoardVO를 사용해도 된다. -->
+   insert into tbl_board (bno,writer,title,content,regdate) values(bno_seq.nextval, #{writer},#{title},
+   #{content},sysdate)
+  </insert>
+  
+  <!-- 총레코드 개수 -->
+  <select id="board_count" resultType="int"> <!-- resultType속성은 반환타입이고 이 속성은 생략불가 -->
+   select count(*) from tbl_board <!-- 오라클에서 count()함수는 레코드 개수를 구한다. -->
+  </select>
+  
+  <!-- 게시판 목록 -->
+  <select id="b_list" resultType="board" parameterType="board">
+   select * from
+   (select rowNum rNum, bno, writer, title, viewcnt,regdate,replycnt from
+    (select * from tbl_board order by bno desc))
+    where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
+    <!-- &gt;은 >, &lt;은 < 의미 -->
+  </select>
+  
+  <!-- 조회수 증가 -->
+  <update id="b_hit">
+    update tbl_board set viewcnt=viewcnt+1 where bno=#{bno}
+  </update>
+  
+  <!-- 내용보기 -->
+  <select id="b_cont" parameterType="int" resultType="board">
+    select * from tbl_board where bno=#{bno}
+  </select>
+  
+  <!-- 게시판 수정 -->
+  <update id="b_edit"> <!-- parameterType속성은 생략 -->
+   update tbl_board set writer=#{writer}, title=#{title}, content=#{content} where bno=#{bno}
+  </update>
+  
+  <!-- 게시물 삭제 -->
+  <delete id="b_del" parameterType="int">
+   delete from tbl_board where bno=#{bno}
+  </delete>
+  
+  <!-- 댓글 수 1증가,감소 -->
+  <update id="replyCntUpdate" parameterType="java.util.HashMap">
+     update tbl_board set replycnt = replycnt+#{count} where bno=#{bno}
+  </update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

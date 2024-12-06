@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" > 
+
+<mapper namespace="Gongji7">
+
+  <!-- 공지 저장 -->
+  <insert id="gongji_save">
+   insert into tbl_gongji7 (gno,gname,gtitle,gcont) values(gno_seq7.nextval, #{gname},#{gtitle},#{gcont})
+  </insert>
+  
+   <!-- 총레코드 개수 -->
+  <select id="gongji_count" resultType="int"> <!-- resultType속성은 반환타입이고 이 속성은 생략불가 -->
+   select count(*) from tbl_gongji7 <!-- 오라클에서 count()함수는 레코드 개수를 구한다. -->
+  </select>
+  
+  <!-- 공지 목록 -->
+  <select id="gongji_li" resultType="gongji7" parameterType="gongji7">
+   select * from
+   (select rowNum rNum, gno, gname, gtitle, ghit,gdate from
+    (select * from tbl_gongji7 order by gno desc))
+    where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
+    <!-- &gt;은 >, &lt;은 < 의미 -->
+  </select>
+  
+  <!-- 조회수 증가 -->
+  <update id="gongji_hit">
+    update tbl_gongji7 set ghit = ghit + 1 where gno=#{gno}
+  </update>  
+  
+  <!-- 내용보기 -->
+  <select id="gongji_cont" parameterType="int" resultType="gongji7">
+    select * from tbl_gongji7 where gno=#{gno}  
+  </select>
+
+  <!-- 공지 수정 -->
+  <update id="gongji_edit" parameterType="gongji7">
+    update tbl_gongji7 set gname=#{gname}, gtitle=#{gtitle}, gcont=#{gcont} where gno=#{gno}
+  </update>
+  
+  <!-- 공지 삭제 -->
+  <delete id="gongji_del">
+    delete tbl_gongji7 where gno=#{no} <!--  from절문 생략가능하고, 전달인자명 gno를 다른 이름으로 해도 된다. -->
+  </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
