@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<title>타임리프(Thymeleaf) 3</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	
+	<table border="1">
+		<tr>
+			<th>MID(회원아이디)</th>
+			<th>MNAME(회원이름)</th>
+			<th>REGDATE(가입날짜)</th>
+		</tr>
+		
+		<tr th:each="member : ${list}">
+			<th th:text="${member.mid}"></th>
+			<th th:text="${member.mname}"></th>
+			<th th:text="${#dates.format(member.regdate, 'yyyy-MM-dd')}"></th>
+		</tr>
+	</table>
+	
+	<hr/>
+	
+	<table border="1">
+		<tr>
+			<th>COUNT</th>
+			<th>SIZE</th>
+			<th>ODD(홀수)/EVEN(짝수)</th>
+			<th>MID</th>
+			<th>MNAME</th>
+			<th>REGDATE</th>
+		</tr>
+		
+		<tr th:each="member, count2 : ${list}">
+			<th th:text="${count2.count}"></th>
+			<!--  index는 0부터 시작하는 인덱스 번호, count는 1부터 시작하는 번호, size는 현재 목록 개수(크기), even 짝수이면 true, odd 홀수이면 true -->
+			<th th:text="${count2.size}"></th>
+			<th th:text="${count2.odd + ' ' + count2.even}"></th>
+			<th th:text="${member.mid}"></th>
+			<th th:text="${member.mname}"></th>
+			<th th:text="${#dates.format(member.regdate, 'yyyy-MM-dd')}"></th>
+		</tr>
+	</table>
+</html>
+
+
+
+
+

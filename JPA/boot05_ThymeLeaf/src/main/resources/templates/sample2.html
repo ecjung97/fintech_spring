@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf 3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1 th:text="${vo}"></h1>
+<hr/>
+
+<div th:utext="${'<h2>' + vo.mid + '</h2>'}"></div> <!-- th:utext속성은 html태그를 적용 -->
+<div th:text="${'<h2>' + vo.mname + '</h2>'}"></div> <!-- th:text속성은 <를 &lt; 특수문자로 인식하고, >를 &gt;로 각각 인식해서
+< >그대로 웹상에 출력되어서 html태그가 적용안된다. -->
+</body>
+</html>
