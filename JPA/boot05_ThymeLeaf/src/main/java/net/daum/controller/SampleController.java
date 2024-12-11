@@ -1,7 +1,8 @@
 package net.daum.controller;
 
-import java.sql.Timestamp; 
+import java.sql.Timestamp;  
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class SampleController {
 		MemberVO vo=new MemberVO(123, "u00", "p00", "홍길동", new Timestamp(System.currentTimeMillis()));
 		model.addAttribute("vo", vo);
 	}
-	
+
 	@RequestMapping(value="/sample3", method=RequestMethod.GET)
 	   public void sample3(Model model) {
 	      List<MemberVO> list = new ArrayList<>();
@@ -78,7 +79,31 @@ public class SampleController {
 		
 		return "result05";
 	}
+	
+	@GetMapping("/sample06")
+	public ModelAndView sample06() {
 
+		List<MemberVO> list = new ArrayList<>();
+
+		for(int i=0; i<=10; i++) {
+			list.add(new MemberVO(i,"u0"+i, "p0"+i, "홍길동"+i, new Timestamp(System.currentTimeMillis())));
+		}
+
+		ModelAndView sm = new ModelAndView("result06"); // 생성자 인자값에 뷰페이지 경로는 src/main/resources/templates/result06.html
+		sm.addObject("list", list);
+		String result = "SUCCESS";
+		sm.addObject("result", result);
+		return sm;
+	}
+
+	@GetMapping("/sample07")
+	public void sample07(Model model) {
+
+		model.addAttribute("now", new Date());
+		model.addAttribute("price", 123456789);
+		model.addAttribute("title", "This is a just sample.");
+//		model.addAttribute("options", Arrays.aslist("AAAA","BBB","CCC","DDD")); // Arrays.asList()는 배열을 컬렉션 List로 변환
+	}
 }
 
 

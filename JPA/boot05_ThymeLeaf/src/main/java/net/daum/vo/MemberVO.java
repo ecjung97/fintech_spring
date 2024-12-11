@@ -14,5 +14,19 @@ public class MemberVO {
 	private String mpw;
 	private String mname;
 	private Timestamp regdate;
-	
+
+	// 기본 생성자
+	public MemberVO() {
+	}
+
+	// 매개변수를 받는 생성자
+	public MemberVO(int mno, String mid, String mpw, String mname, Timestamp regdate) {
+		this.mno = mno;
+		this.mid = mid;
+		this.mpw = mpw;
+		this.mname = mname;
+		this.regdate = regdate;
+	}
+
+	// Getter와 Setter 추가
 }
