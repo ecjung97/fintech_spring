@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd" > <!-- mybatis dtd 문서정의 태그 -->
+
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" /> <!-- mybatis에서 null값 insert, update 시
+		에러가 발새하는 것을 방지하는 코드 -->
+	</settings>
+	
+	<typeAliases>
+		<!-- 이 파일의 역할은 데이터 저장빈 클래스 객체 별칭이름을 관리한다. -->
+		
+		<typeAlias type="net.daum.vo.BbsVO" alias="bbs" />
+		<typeAlias type="net.daum.vo.PageVO" alias="page" />
+	</typeAliases>
+</configuration>	

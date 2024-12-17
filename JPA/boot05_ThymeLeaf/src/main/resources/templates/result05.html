@@ -1,20 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>타임리프 5</title>
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	</head>
-	<body>
-	
-		<script th:inline="javascript">
-		/* th:inline="javascript" 속성을 사용하면 <script>태그내에 타임리프 문법을 사용할 수 있다. */
-		
-		let re = [[${result}]];
-		document.write("타임리프로 가져온 값 : <b>"+re+"</b><hr/>");
-		</script>
-		
-		<script>
-		/* th:inline="javascript" 를 사용하지 않아서 자바스크립트 코드 내에서 타임리프 문법 사용이 제한된다. */
-		let result = [[${result}]]; // SampleController에서 저장된 문자열 값 "SUCCESS"가 마치 자바스크립트 변수처럼 사용되어진다.
-		</script>
-	</body>
+ <head>
+  <title>타임리프 5</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
+ </head>
+ <body>
+  
+  <script th:inline="javascript">
+   /* th:inline="javascript" 속성을 사용하면 <script>태그내에 타임리프 문법을 사용할 수 있다.*/
+   
+   let re = [[${result}]];
+   document.write("타임리프로 가져온 값 : <b>"+re+"</b><hr/>");
+  </script>
+  
+  <script>
+   /* th:inline="javascript" 를 사용하지 않아서 자바스크립트 코드 내에서 타임리프 문법 사용이 제한된다. 
+   */
+   let result = [[${result}]];//SampleController에서 저장된 문자열 값 "SUCCESS"가 마치 자바스크립트 변수처럼 사용되어진다.
+  </script>
+ </body>
 </html>

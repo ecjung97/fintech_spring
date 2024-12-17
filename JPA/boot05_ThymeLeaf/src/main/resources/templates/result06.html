@@ -1,31 +1,31 @@
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>타임리프 예제06</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-<body>
-<table border="1" th:inline="text"> <!-- th:inline="text"를 지정해서 일반 태그에서도 사용 -->
-    <tr>
-        <th>회원아이디(MID)</th>
-        <th>회원이름(MNAME)</th>
-        <th>가입날짜(REGDATE)</th>
-    </tr>
-
-    <tr th:each="member" : ${list}>
-        <th>[[${member.mid}]]</th>
-        <th>[[${member.name}]]</th>
-        <th>[[${member.regdate}]]</th>
-    </tr>
-</table>
-
-<div>[[${result}]]</div>
-<div>[[${#vars.result}]]</div> <!-- 표현식 기본객체에서 vars은 생략 가능. 옆의 2가지의 표현은 같은 의미 -->
-
-<script th:inline="javascript">
-    // th:inline="javascript"를 사용하면 자바스크립트 코드에서도 타입ㅁ리프를 사용할 수 있다.
-
-    let result = [[${result}]];
+<html xmlns:th="http://www.thymeleaf.org" >
+ <head>
+  <title>타임리프 예제06</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+ </head>
+ <body>
+  <table border="1" th:inline="text"> <!-- th:inline="text"를 지정해서 일반 태그에서도 사용 -->
+   <tr>
+    <th>회원아이디(MID)</th>
+    <th>회원이름(MNAME)</th>
+    <th>가입날짜(REGDATE)</th>
+   </tr>
+   
+   <tr th:each="member : ${list}">
+    <th>[[${member.mid}]]</th>
+    <th>[[${member.mname}]]</th>
+    <th>[[${member.regdate}]]</th>
+   </tr>
+  </table>
+  
+  <div>[[${result}]]</div>
+  <div>[[${#vars.result}]]</div> <!-- 표현식 기본객체에서 vars은 생략가능함. 옆의 2가지의 표현은 같은 의미이다. -->
+  
+  <script th:inline="javascript">
+    //th:inline="javascript"를 사용하면 자바스크립트 코드에서도 타임리프를 사용할 수 있다.
+    
+    let result= [[${result}]];
     alert(result);
-</script>
-</body>
+  </script>
+ </body>
 </html>

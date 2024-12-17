@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+ <head>
+  <title>ThymeLeaf 07</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ </head>
+ <body>
+   
+   <h1 th:text="${now}"></h1>
+   <h2 th:text="${#dates.format(now, 'yyyy-MM-dd')}"></h2>
+   
+   <div th:with="todayTime=${#dates.createToday()}">
+    <p>[[${todayTime}]]
+   </div>
+   
+   <h1 th:text="${price}"></h1>
+   
+   <h2 th:text="${#numbers.formatInteger(price, 3, 'COMMA')}"></h2>
+   <!-- 세자리 수 콤마로 표현, #numbers.formatInteger(표시해야 할 값, 최소 자리수, COMMA는 구분자인 ,를 의미) -->
+   
+   <div th:with="priceValue=99.87654">
+     <p th:text="${#numbers.formatInteger(priceValue, 3, 'COMMA')}"></p>
+     <!-- 세자리수 콤마로 표현, formatInteger는 정수 처리를 한다.결국 반올림해서 세자리 수 정수 100으로 표현 -->
+     
+     <p th:text="${#numbers.formatDecimal(priceValue,5,10,'POINT')}"></p>
+     <!-- formatDecimal(표시할 값, 최소 정수자리수, 최소 소수 자리수,POINT는 구분자 .을 의미 -->
+   </div>
+   
+   <h1 th:text="${title}"></h1>
+   
+   <span th:utext="${#strings.replace(title,'s','<b>s</b>')}"></span>
+   <!-- title에 저장된 영문자에서 s문자를 진하게 표현하게 변경 -->
+   
+   <ul>
+    <li th:each="str:${#strings.listSplit(title,' ')}">[[${str}]]</li>
+    <!-- title에 저장된 영문자에서 공백 문자를 기분으로 문자를 분리한다. -->
+   </ul>
+   
+   <h2 th:text="${options}"></h2>
+ </body>
+</html>
+
+
+
+
+
+
