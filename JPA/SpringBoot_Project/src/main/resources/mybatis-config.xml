@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="net.daum.vo.BbsVO" alias="bbs" />
 		<typeAlias type="net.daum.vo.PageVO" alias="page" />
 		<typeAlias type="net.daum.vo.AdminVO" alias="admin"/>
+		<typeAlias type="net.daum.vo.BoardFormDataVO" alias="boardData" />
 		
 	</typeAliases>
 </configuration>	
