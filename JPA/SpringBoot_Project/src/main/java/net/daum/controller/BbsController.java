@@ -1,4 +1,4 @@
-package net.daum.Controller;
+package net.daum.controller;
 
 import java.io.File;
 import java.io.PrintWriter;

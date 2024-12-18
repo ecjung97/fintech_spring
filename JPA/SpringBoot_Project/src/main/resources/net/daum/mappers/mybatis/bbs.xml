@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	</where>
     </select>
     
-    <!-- 검색전후 목록 -->
+    <!-- 검색전후 페이징 목록 -->
     <select id="bbs_list" resultType="bbs">
     	select * from (
     		select rowNum rNum, bbs_no, bbs_name, bbs_title, bbs_hit, bbs_ref, bbs_step, bbs_level, bbs_date
