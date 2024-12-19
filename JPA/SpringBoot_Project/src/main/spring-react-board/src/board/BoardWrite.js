@@ -90,7 +90,7 @@ Fetch API 또는 Axios 사용: 리액트 애플리케이션에서는 Fetch API�
     setContent("");
 
     alert("저장 성공");
-    // navigate("/");
+    navigate("/");
   }; //handleSubmit()
 
   const handleList = () => {

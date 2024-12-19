@@ -1,8 +1,14 @@
 package net.daum.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.daum.service.ReactService;
 import net.daum.vo.BoardFormDataVO;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 public class ReactController {
@@ -42,4 +50,88 @@ public class ReactController {
 		return "{\"message\": \"Data received successfully\"}";
 	}
 	
+	// 리액트가 아닌 jQuery 비동기식 자료 저장
+	@PostMapping("/board_FormData_ok2")
+	public ResponseEntity<String> board_FormData_ok2(@RequestBody BoardFormDataVO vo) {
+		ResponseEntity<String> entity = null;
+		
+		
+		try {
+			this.reactService.reactInsert(vo); // 댓글 등록
+			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK); // 댓글 저장 성공 시 'SUCCESS' 문자와 200 정상상태코드가 반환
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			// 예외 에러가 발생하면 예외 에러 메시지와 나쁜 상태 코드가 반환
+		}
+		return entity;
+	} // board_FormData_ok2()
+	
+	// 리액트 게시판 목록
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/board_FormData_List")
+	public ResponseEntity<List<BoardFormDataVO>> board_FormData_List() {
+		ResponseEntity<List<BoardFormDataVO>> entity = null;
+		 
+		try {
+			entity = new ResponseEntity<>(this.reactService.boardFormDataList(), HttpStatus.OK);
+			// HttpStatus.OK 상태코드는 200정상상태 코드를 반환
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	} // board_FormData_List()
+	
+	// 리액트 게시판 내용보기
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/board_FormData_cont/{no}")
+	public ResponseEntity<BoardFormDataVO> board_FormData_cont(@PathVariable int no) {
+		/* 브라우저 주소창에서 전달된 게시판 번호를 {no} @PathVariable 애노테이션으로 추출한다. */
+		ResponseEntity<BoardFormDataVO> entity = null;
+		
+		try {
+			entity = new ResponseEntity<>(this.reactService.getBoardDataCont(no), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	} // board_FormData_cont()
+	
+	// 리액트게시판 수정
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PutMapping("board_FormData_Edit/{no}") // 수정할 때는 @PutMapping을 사용한다.
+	public ResponseEntity<String> board_FormData_Edit(@PathVariable int no, @RequestBody BoardFormDataVO vo) {
+		ResponseEntity<String>  entity = null;
+		
+		try {
+			vo.setNo(no); // 번호 저장
+			this.reactService.updateBoard(vo); // 게시판 수정
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	} // board_FormData_Edit()
+	
+	// 리액트 게시판 삭제
+	@CrossOrigin(origins = "http://localhost:3000")
+	@DeleteMapping("/board_FormData_Del/{no}")
+	public ResponseEntity<String> board_FormData_Del(@PathVariable int no) {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			this.reactService.delBoard(no); // 게시물 삭제
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			/* 문제) ajswj JPA로 번호에 해당하는 게시글 삭제되게 만들어 보고, 백엔드 테스트는 ARC(Advanced Rest Client)에서 한 다음
+			 * 웹브라우저에서 최종적으로 리액트 컴포넌트 UI와 스프링 백엔드와 연동해서 삭제되게 해본다. */
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	} // board_FormData_Del()
 }

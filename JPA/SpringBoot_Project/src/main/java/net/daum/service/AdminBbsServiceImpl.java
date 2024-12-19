@@ -24,4 +24,24 @@ public class AdminBbsServiceImpl implements AdminBbsService {
 	public List<BbsVO> getBbsList(PageVO p) {
 		return this.adminBbsDao.getBbsList(p);
 	}
+
+	@Override
+	public void insertBbs(BbsVO bbs) {
+		this.adminBbsDao.insertBbs(bbs);
+	}
+
+	@Override
+	public BbsVO getAdminBbsCont(int no) {
+		return this.adminBbsDao.getAdminBbsCont(no);
+	}
+
+	@Override
+	public void adminUpdateBbs(BbsVO bbs) {
+		this.adminBbsDao.adminUpdateBbs(bbs);
+	}
+
+	@Override
+	public void adminBbsDel(int no) {
+		this.adminBbsDao.adminDelBbs(no);
+	}
 }

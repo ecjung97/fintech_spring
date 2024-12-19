@@ -37,4 +37,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	order by bbs_ref desc, bbs_level asc)) where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
     	<!-- &gt;은 >, &lt;은 < -->
 	</select>
+	
+	<!-- 관리자 자료실 저장 -->
+	<insert id="bbs_in" parameterType="bbs"> <!-- parameterType은 전달인자 타입으로 생략가능함. -->
+        insert into bbs (bbs_no,bbs_name,bbs_title,bbs_pwd,bbs_cont,bbs_file,bbs_hit,bbs_ref,bbs_step,
+        bbs_level,bbs_date) values(bbs_no_seq.nextval, #{bbs_name}, #{bbs_title},#{bbs_pwd},
+        #{bbs_cont},#{bbs_file},0,bbs_no_seq.nextval,0,0,sysdate)
+    </insert>
+    
+    <!-- 관리자 자료실 상세정보와 수정폼 -->
+    <select id="abbs_cont" parameterType="int" resultType="bbs"> <!-- parameterType은 전달인자 타입으로 생략가능,
+    resultType은 반환타입이고 생략불가 -->
+    	select * from bbs where bbs_no=#{no}
+    </select>
+    
+    <!-- 관리자 자료실 수정 -->
+    <update id="abbs_edit">
+    	update bbs set bbs_name=#{bbs_name}, bbs_title=#{bbs_title}, bbs_cont=#{bbs.cont}, bbs_file=#{bbs_file}
+    	where bbs_no=#{bbs_no}
+    </update>
+    
+    <!-- 관리자 자료실 삭제 -->
+    <delete id="abbs_del">
+    	delete bbs where bbs_no=#{no}
+    </delete>
 </mapper>

@@ -9,5 +9,9 @@ public interface AdminBbsService {
 
 	int getRowCount(PageVO p);
 	List<BbsVO> getBbsList(PageVO p);
+	void insertBbs(BbsVO bbs);
+	BbsVO getAdminBbsCont(int no);
+	void adminUpdateBbs(BbsVO bbs);
+	void adminBbsDel(int no);
 
 }
